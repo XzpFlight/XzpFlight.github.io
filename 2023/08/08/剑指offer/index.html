@@ -1,37 +1,239 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
 
+  
+  <title>剑指offer_链表_解析_C++ | 客官请留步~~</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#JZ35 复杂链表的复制解析：    算法首先检查链表是否为空，如果是空链表，则直接返回。    接下来，算法遍历原始链表，并进行拷贝操作。对于每个原始节点 cur，都创建一个新节点 clone，其值为原始节点的值。然后将新节点 clone 插入到原始节点 cur 后面。这样，新的链表中的节点就是原始链表的节点的拷贝。    接着，算法再次遍历链表，连接新链表的 random 节点。根据原始链表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指offer_链表_解析_C++">
+<meta property="og:url" content="https://xzpflight.github.io/2023/08/08/%E5%89%91%E6%8C%87offer/index.html">
+<meta property="og:site_name" content="客官请留步~~">
+<meta property="og:description" content="#JZ35 复杂链表的复制解析：    算法首先检查链表是否为空，如果是空链表，则直接返回。    接下来，算法遍历原始链表，并进行拷贝操作。对于每个原始节点 cur，都创建一个新节点 clone，其值为原始节点的值。然后将新节点 clone 插入到原始节点 cur 后面。这样，新的链表中的节点就是原始链表的节点的拷贝。    接着，算法再次遍历链表，连接新链表的 random 节点。根据原始链表">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-08T12:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-08T12:20:59.685Z">
+<meta property="article:author" content="XzpFlight">
+<meta property="article:tag" content="算法题">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="客官请留步~~" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<meta name="generator" content="Hexo 5.4.2"></head>
 
-{% block page_class %}page-post-detail{% endblock %}
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">客官请留步~~</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://XzpFlight.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-剑指offer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/08/08/%E5%89%91%E6%8C%87offer/" class="article-date">
+  <time datetime="2023-08-08T12:00:00.000Z" itemprop="datePublished">2023-08-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%91%E6%8C%87offer/">剑指offer</a>
+  </div>
 
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      剑指offer_链表_解析_C++
+    </h1>
+  
 
-{% block content %}
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#JZ35 复杂链表的复制<br>解析：<br>    算法首先检查链表是否为空，如果是空链表，则直接返回。<br>    接下来，算法遍历原始链表，并进行拷贝操作。对于每个原始节点 cur，都创建一个新节点 clone，其值为原始节点的值。然后将新节点 clone 插入到原始节点 cur 后面。这样，新的链表中的节点就是原始链表的节点的拷贝。<br>    接着，算法再次遍历链表，连接新链表的 random 节点。根据原始链表中的 random 指针，我们可以找到对应节点的拷贝节点的位置，然后将其赋给新链表节点的 random 指针。<br>    最后，算法再次遍历链表，拆分原始链表和新链表。对于每个节点，我们将原始链表中的节点的 next 指针指向下一个原始节点，将新链表中的节点的 next 指针指向下一个新节点。<br>    最终，算法返回复制后的链表的头指针。<br>    该算法的时间复杂度为 O(n)，其中 n 是链表的长度。需要遍历链表三次，每次遍历都需要线性时间。<br>    空间复杂度为 O(1)，即常数空间。除了复制出的新节点和一些指针变量外，没有使用额外的空间。</p>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://xzpflight.github.io/2023/08/08/%E5%89%91%E6%8C%87offer/" data-id="cll3kq8f20001y8trhwmtbc3k" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" rel="tag">算法题</a></li></ul>
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/08/09/xiao-first-blog/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          xiao-first-blog
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/20/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%91%E6%8C%87offer/">剑指offer</a></li></ul>
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" rel="tag">算法题</a></li></ul>
+    </div>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E7%AE%97%E6%B3%95%E9%A2%98/" style="font-size: 10px;">算法题</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/08/09/xiao-first-blog/">xiao-first-blog</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/08/%E5%89%91%E6%8C%87offer/">剑指offer_链表_解析_C++</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/20/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 XzpFlight<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
