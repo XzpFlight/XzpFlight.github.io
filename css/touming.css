@@ -19,6 +19,14 @@
 	background: rgba(255,255,255, .0);
 }
 
+/*移动端优化：去除归档、标签、最新文章、公告、、只保留网站统计*/
+
+@media screen and (max-width: 768px) {
+    #aside_content div:not(:last-child) {
+        display: none;
+    }
+}
+
 /*首页文章栏背景透明
 #recent-posts>.recent-post-item,.layout_page>div:first-child:not(.recent-posts),.layout_post>#page,.layout_post>#post,.read-mode .layout_post>#post {
     background: var(--light_bg_color)
