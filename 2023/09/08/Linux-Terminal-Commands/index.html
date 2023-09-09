@@ -387,31 +387,43 @@
   }
 
   window.pjax ? abcjsInit() : document.addEventListener('DOMContentLoaded', abcjsInit)
-})()</script><script>function loadValine () {
-  function initValine () {
-    const valine = new Valine(Object.assign({
-      el: '#vcomment',
-      appId: 'JQLhtpv5ykxtsnKqQ6xDKiHi-gzGzoHsz',
-      appKey: '0NLYazEAPkModiD9sBJlVhhN',
-      avatar: 'monsterid',
-      serverURLs: '',
-      path: window.location.pathname,
-      visitor: false
-    }, {"master":["b8e69a96f41c8dff9278ddee541733f0"],"friends":["c2141a0a898825e10717056ec9b47884"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱(必填)","link":"网址(https://)"},"tagMeta":["博主","小伙伴","访客"]}))
-  }
-
-  if (typeof Valine === 'function') initValine() 
-  else getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js').then(initValine)
+})()</script><div class="vcomment" id="vcomment"></div><script src="/"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
 }
 
-if ('Valine' === 'Valine' || !false) {
-  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
-  else setTimeout(loadValine, 0)
-} else {
-  function loadOtherComment () {
-    loadValine()
-  }
-}</script></div><div class="aplayer no-destroy" data-id="8651105632" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-lrcType="-1"> </div><script src="/js/cursor.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail','link'],'')
+let friends = ''.split(',')
+let master = ''.split(',')
+let tagMeta = '博主,小伙伴,访客'.split(',')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: 'JQLhtpv5ykxtsnKqQ6xDKiHi-gzGzoHsz',
+  appKey: '0NLYazEAPkModiD9sBJlVhhN',
+  notify: false,
+  verify: false,
+  placeholder: '填写邮箱可以及时收到回复哦',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '10',
+  lang: 'zh-CN',
+  recordIP: 'true',
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: false,
+  requiredFields: requiredFields,
+  master: master,
+  friends: friends,
+  tagMeta: tagMeta,
+  metaPlaceholder: {}
+});</script></div><div class="aplayer no-destroy" data-id="8651105632" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-lrcType="-1"> </div><script src="/js/cursor.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = true;
 POWERMODE.mobile = true;
 document.body.addEventListener('input', POWERMODE);
