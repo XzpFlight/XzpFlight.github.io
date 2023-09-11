@@ -6,3 +6,9 @@
 .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
     left: 0 !important
 }
+
+/* 翻页按钮居中 */
+#pagination {
+    width: 100%;
+    margin: auto;
+  }
