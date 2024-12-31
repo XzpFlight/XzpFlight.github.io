@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -20,21 +21,196 @@
   box-sizing: border-box;
 }
  
-<p>html,body {<br>  height: 100%;<br>}</p>
-<p>html {<br>  background-color: #000;<br>}</p>
-<p>body {<br>  overflow: hidden;<br>  color: rgba(255, 255, 255, 0.5);<br>  overflow: hidden; /* 禁用滚动条 */<br>  font-family: “Russo One”, arial, sans-serif;<br>  line-height: 1.25;<br>  letter-spacing: 0.06em;<br>  margin: 0;<br>  padding: 0;<br>  height: 100vh;<br>  display: flex;<br>  justify-content: center;<br>  align-items: center;<br>  background: #282c34;<br>  color: white;<br>}</p>
-<p>.hide {<br>  opacity: 0;<br>  visibility: hidden;<br>}</p>
-<p>.remove {<br>  display: none;<br>}</p>
-<p>.blur {<br>  filter: blur(12px);<br>}</p>
-<p>.container {<br>  height: 100%;<br>  display: flex;<br>  justify-content: center;<br>  align-items: center;<br>}</p>
-<p>#loading-init {<br>  width: 100%;<br>  align-self: center;<br>  text-align: center;<br>  font-size: 2em;<br>}</p>
-<p>#stage-container {<br>  overflow: hidden;<br>  box-sizing: initial;<br>  border: 1px solid #222;<br>  margin: -1px;<br>}</p>
-<p>#canvas-container {<br>  width: 100%;<br>  height: 100%;<br>  transition: filter 0.3s;</p>
-<p>}<br>#canvas-container canvas {<br>  position: absolute;<br>  mix-blend-mode: lighten;<br>}</p>
-<p>#controls {<br>  position: absolute;<br>  top: 0;<br>  width: 100%;<br>  padding-bottom: 50px;<br>  display: flex;<br>  justify-content: space-between;<br>  transition: opacity 0.3s, visibility 0.3s;<br>}<br>@media (min-width: 800px) {<br>  #controls {<br>    visibility: visible;<br>  }<br>  #controls.hide:hover {<br>    opacity: 1;<br>  }<br>}</p>
-<p>#menu {<br>  display: flex;<br>  flex-direction: column;<br>  justify-content: center;<br>  align-items: center;<br>  position: absolute;<br>  top: 0;<br>  bottom: 0;<br>  width: 100%;<br>  background-color: rgba(0, 0, 0, 0.42);<br>  transition: opacity 0.3s, visibility 0.3s;<br>}<br>#menu__header {<br>  padding: 20px 0 44px;<br>  font-size: 2em;<br>  text-transform: uppercase;<br>}<br>#menu form {<br>  width: 240px;<br>  padding: 0 20px;<br>  overflow: auto;<br>}<br>#menu .form-option {<br>  margin: 20px 0;<br>}<br>#menu .form-option label {<br>  text-transform: uppercase;<br>}<br>#menu .form-option–select label {<br>  display: block;<br>  margin-bottom: 6px;<br>}<br>#menu .form-option–select select {<br>  display: block;<br>  width: 100%;<br>  height: 30px;<br>  font-size: 1rem;<br>  font-family: “Russo One”, arial, sans-serif;<br>  color: rgba(255, 255, 255, 0.5);<br>  letter-spacing: 0.06em;<br>  background-color: transparent;<br>  border: 1px solid rgba(255, 255, 255, 0.5);<br>}<br>#menu .form-option–select select option {<br>  background-color: black;<br>}<br>#menu .form-option–checkbox label {<br>  display: flex;<br>  align-items: center;<br>  transition: opacity 0.3s;<br>  -webkit-user-select: none;<br>     -moz-user-select: none;<br>      -ms-user-select: none;<br>          user-select: none;<br>}<br>#menu .form-option–checkbox input {<br>  display: block;<br>  width: 20px;<br>  height: 20px;<br>  margin-right: 8px;<br>  opacity: 0.5;<br>}<br>@media (max-width: 800px) {<br>  #menu .form-option select, #menu .form-option input {<br>    outline: none;<br>  }<br>}</p>
-<p>#close-menu-btn {<br>  position: absolute;<br>  top: 0;<br>  right: 0;<br>}</p>
-<p>.btn {<br>  opacity: 0.16;<br>  width: 44px;<br>  height: 44px;<br>  display: flex;<br>  -webkit-user-select: none;<br>     -moz-user-select: none;<br>      -ms-user-select: none;<br>          user-select: none;<br>  cursor: default;<br>  transition: opacity 0.3s;<br>}<br>.btn–bright {<br>  opacity: 0.5;<br>}<br>@media (min-width: 800px) {<br>  .btn:hover {<br>    opacity: 0.32;<br>  }<br>  .btn–bright:hover {<br>    opacity: 0.75;<br>  }<br>}<br>.btn svg {<br>  display: block;<br>  margin: auto;<br>}<br></style></p>
+html,body {
+  height: 100%;
+}
+ 
+html {
+  background-color: #000;
+}
+ 
+body {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.5);
+  overflow: hidden; /* 禁用滚动条 */
+  font-family: "Russo One", arial, sans-serif;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #282c34;
+  color: white;
+}
+ 
+.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+ 
+.remove {
+  display: none;
+}
+ 
+.blur {
+  filter: blur(12px);
+}
+ 
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ 
+#loading-init {
+  width: 100%;
+  align-self: center;
+  text-align: center;
+  font-size: 2em;
+}
+ 
+#stage-container {
+  overflow: hidden;
+  box-sizing: initial;
+  border: 1px solid #222;
+  margin: -1px;
+}
+ 
+#canvas-container {
+  width: 100%;
+  height: 100%;
+  transition: filter 0.3s;
+  
+}
+#canvas-container canvas {
+  position: absolute;
+  mix-blend-mode: lighten;
+}
+ 
+#controls {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+@media (min-width: 800px) {
+  #controls {
+    visibility: visible;
+  }
+  #controls.hide:hover {
+    opacity: 1;
+  }
+}
+ 
+#menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.42);
+  transition: opacity 0.3s, visibility 0.3s;
+}
+#menu__header {
+  padding: 20px 0 44px;
+  font-size: 2em;
+  text-transform: uppercase;
+}
+#menu form {
+  width: 240px;
+  padding: 0 20px;
+  overflow: auto;
+}
+#menu .form-option {
+  margin: 20px 0;
+}
+#menu .form-option label {
+  text-transform: uppercase;
+}
+#menu .form-option--select label {
+  display: block;
+  margin-bottom: 6px;
+}
+#menu .form-option--select select {
+  display: block;
+  width: 100%;
+  height: 30px;
+  font-size: 1rem;
+  font-family: "Russo One", arial, sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.06em;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+#menu .form-option--select select option {
+  background-color: black;
+}
+#menu .form-option--checkbox label {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+#menu .form-option--checkbox input {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  opacity: 0.5;
+}
+@media (max-width: 800px) {
+  #menu .form-option select, #menu .form-option input {
+    outline: none;
+  }
+}
+ 
+#close-menu-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+ 
+.btn {
+  opacity: 0.16;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: default;
+  transition: opacity 0.3s;
+}
+.btn--bright {
+  opacity: 0.5;
+}
+@media (min-width: 800px) {
+  .btn:hover {
+    opacity: 0.32;
+  }
+  .btn--bright:hover {
+    opacity: 0.75;
+  }
+}
+.btn svg {
+  display: block;
+  margin: auto;
+}
+</style>
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -134,14 +310,21 @@
 
 <!--鼠标特效-->
 <script src="https://blog-static.cnblogs.com/files/zouwangblog/mouse-click.js"></script>
-<p>&lt;canvas<br>  width=”1777”<br>  height=”841”<br>  style=”<br>    position: fixed;<br>    left: 0px;<br>    top: 0px;<br>    z-index: 2147483647;<br>    pointer-events: none;<br>  “</p>
-<blockquote>
-</canvas>
-</blockquote>
+<canvas
+  width="1777"
+  height="841"
+  style="
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 2147483647;
+    pointer-events: none;
+  "
+></canvas>
 <!--鼠标特效 end-->
 
 <!-- 隐藏播放控件的背景音乐组件 -->
-<p><audio src="./newYear2025.mp3" id="myAudio" autoplay loop></audio></p>
+<audio src="./newYear2025.mp3" id="myAudio" autoplay loop></audio>
 <script>
     // 自动播放兼容处理
     document.addEventListener('DOMContentLoaded', function () {
