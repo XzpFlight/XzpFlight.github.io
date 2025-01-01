@@ -61,22 +61,64 @@
         }
 
 
-        
-         /* 统一标题字体大小 */
-         h1, h2 {
+
+        /* 统一标题字体大小 */
+        h1,
+        h2 {
             font-size: 2.5rem;
             font-weight: bold;
             margin: 20px 0;
         }
 
         h1 {
-            font-size: 2.5rem;  /* 你可以调整这里的大小 */
+            font-size: 2.5rem;
+            /* 你可以调整这里的大小 */
         }
 
         h2 {
-            font-size: 2.5rem;  /* 这里也设置为相同的大小 */
+            font-size: 2.5rem;
+            /* 这里也设置为相同的大小 */
             color: #ffffff;
         }
+
+        .message {
+            text-align: center;
+            /* 使文本居中对齐 */
+            padding: 20px;
+            background-color: rgba(248, 248, 248, 0.5); /* 半透明背景色 */
+            /* 背景色 */
+            border-radius: 10px;
+            /* 圆角 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* 阴影 */
+            max-width: 500px;
+            /* 最大宽度 */
+            margin: 0 auto;
+            /* 水平居中 */
+        }
+
+        .main-text {
+            font-size: 2.5rem;
+            /* 字体大小 */
+            font-family: 'Arial', sans-serif;
+            /* 字体 */
+            color: #f56c6c;
+            /* 文字颜色 */
+            margin-bottom: 10px;
+            /* 下边距 */
+        }
+
+        .sub-text {
+            font-size: 1.2rem;
+            /* 较小的字体 */
+            font-family: 'Arial', sans-serif;
+            /* 字体 */
+            color: #333;
+            /* 文字颜色 */
+            font-style: italic;
+            /* 斜体 */
+        }
+
 
         /* 倒计时数字的基础样式 */
         .countdown-time {
@@ -133,7 +175,7 @@
 
         /* 显示信息区域的样式 */
         .message {
-            margin-top: 30px;
+            margin-top: 75px;
             /* 设置信息区域顶部外边距为 30px */
             font-size: 1.5rem;
             /* 设置信息区域文字的字体大小为 1.5rem */
@@ -421,6 +463,8 @@
         <div class="main-text">🧨 | ɴᴇʏ ʏᴇᴀʀ̆̈ 🧨🎉</div>
         <div class="sub-text">年年景不改 🎊岁岁人常在</div>
     </div>
+
+
 
     <canvas id="fireworksCanvas"></canvas>
 
