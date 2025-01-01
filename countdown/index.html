@@ -1,73 +1,150 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
+    <!-- 设置网页的字符编码为 UTF-8，确保页面能正确显示各种字符 -->
     <meta charset="UTF-8">
+
+    <!-- 设置页面视口的宽度为设备宽度，初始缩放比例为1，适配各种屏幕大小 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⏳2025 · 新年倒计时𝟛！𝟚！𝟙！</title>
 
-    <!-- 引入 Google 字体 -->
-    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    
-    <!-- 样式 -->
+    <!-- 设置网页的标题，显示在浏览器的标签页上 -->
+    <title>萧志鹏💘周海霞</title>
+
     <style>
+        /* 下面是网页的 CSS 样式，用于定义页面的外观和布局 */
+
+        /* body 元素的样式 */
         body {
-            font-family: 'Russo One', sans-serif;
-            background-color: #1e2a47;
-            color: white;
-            text-align: center;
-            padding: 50px;
+            font-family: 'Arial', sans-serif;
+            /* 设置字体为 Arial, 若无则使用 sans-serif */
             margin: 0;
+            /* 移除页面的默认外边距 */
+            padding: 0;
+            /* 移除页面的默认内边距 */
+            height: 100vh;
+            /* 设置页面的高度为视口的高度 */
             overflow: hidden;
+            /* 禁止滚动条出现 */
             position: relative;
+            /* 设置相对定位，供子元素定位使用 */
+            background-color: #f0f8ff;
+            /* 设置背景颜色为浅蓝色 */
+            color: #fff;
+            /* 设置文字颜色为白色 */
+            text-align: center;
+            /* 设置文本居中 */
         }
 
+        /* 背景图片的样式 */
+        .background-image {
+            position: absolute;
+            /* 绝对定位，覆盖整个页面 */
+            top: 0;
+            /* 距离页面顶部 0 像素 */
+            left: 50%;
+            /* 将图片定位到页面水平中心 */
+            transform: translateX(-50%);
+            /* 利用变换使图片完全水平居中 */
+            width: 100%;
+            /* 宽度为 100% */
+            height: 100%;
+            /* 高度为 100% */
+            background-image: url('http://spd20zbkr.hn-bkt.clouddn.com/xzp%26%26zhx.jpg');
+            /* 背景图片的 URL */
+            background-size: cover;
+            /* 图片自适应缩放，覆盖整个背景区域 */
+            background-position: center center;
+            /* 背景图片居中显示 */
+            z-index: -1;
+            /* 确保背景层位于最底层 */
+        }
+
+        /* h1 元素的样式，通常用于页面标题 */
         h1 {
-            font-size: 80px;
-            margin-bottom: 20px;
-            animation: slideIn 1s ease-out forwards;
-        }
-
-        @keyframes slideIn {
-            0% { transform: translateY(-50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        #countdown {
-            font-size: 60px;
+            font-size: 2.5rem;
+            /* 设置标题的字体大小 */
             margin: 20px 0;
+            /* 设置上下外边距为 20px */
         }
 
-        .message {
-            font-size: 36px;
-            margin-top: 30px;
-            font-weight: bold;
-            color: #ff8c00;
-            animation: fadeIn 2s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .message span {
-            display: block;
-            font-size: 40px;
-            color: #ffcc00;
-            margin-top: 10px;
-        }
-
+        /* 倒计时数字的基础样式 */
         .countdown-time {
-            color: #ff007f;
-            display: inline-block;
-            animation: bounce 1s infinite alternate;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
         }
 
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
+        /* 倒计时区域的样式 */
+        #countdown {
+            margin-bottom: 20px;
+            font-size: 3rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 倒计时每一段（天、小时、分钟、秒）的样式 */
+        .countdown-segment {
+            padding: 0 10px;
+        }
+
+        /* 针对每一部分倒计时的颜色 */
+        #days {
+            color: #FF6347;
+            /* Tomato */
+        }
+
+        #hours {
+            color: #1E90FF;
+            /* DodgerBlue */
+        }
+
+        #minutes {
+            color: #32CD32;
+            /* LimeGreen */
+        }
+
+        #seconds {
+            color: #FFD700;
+            /* Gold */
+        }
+
+        /* 显示信息区域的样式 */
+        .message {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        /* 心跳效果的样式 */
+        .heartbeat {
+            font-size: 5rem;
+            /* 调整为合适大小 */
+            font-weight: bold;
+            animation: heartbeat 1s ease-in-out infinite;
+            /* 加入心跳动画 */
+        }
+
+        /* 心跳动画 */
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+                /* 放大效果 */
+            }
+        }
+
+        /* 信息区域中 span 元素的样式 */
+        .message span {
+            color: #2e8b57;
+            /* 设置 span 内的文字颜色为 SeaGreen（海洋绿） */
         }
 
         /* 动态背景 */
@@ -104,127 +181,289 @@
             opacity: 0.7;
             animation: fall linear infinite;
         }
+
+        /* 烟花动画画布样式 */
+        #fireworksCanvas {
+            position: absolute;
+            /* 绝对定位 */
+            top: 0;
+            /* 距离页面顶部 0 像素 */
+            left: 0;
+            /* 距离页面左侧 0 像素 */
+            width: 100%;
+            /* 宽度为 100% */
+            height: 100%;
+            /* 高度为 100% */
+            pointer-events: none;
+            /* 禁止画布元素响应鼠标事件 */
+            z-index: 5;
+            /* 确保烟花画布位于其他元素之上 */
+        }
+
+        /* 按钮样式 */
+        #playBGM {
+            position: fixed;
+            /* 固定定位，保持在页面固定位置 */
+            bottom: 20px;
+            /* 距离页面底部 20px */
+            left: 50%;
+            /* 水平居中 */
+            transform: translateX(-50%);
+            /* 将按钮完全居中 */
+            padding: 15px 30px;
+            /* 按钮内边距，15px 上下，30px 左右 */
+            font-size: 18px;
+            /* 字体大小为 18px */
+            background-color: #FF6347;
+            /* 背景颜色为 Tomato（番茄红） */
+            color: #fff;
+            /* 文字颜色为白色 */
+            border: none;
+            /* 无边框 */
+            border-radius: 25px;
+            /* 圆角效果，半径为 25px */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            /* 按钮的阴影效果 */
+            cursor: pointer;
+            /* 鼠标悬停时显示手型光标 */
+            transition: all 0.3s ease;
+            /* 按钮状态变化的平滑过渡效果 */
+            z-index: 10;
+            /* 确保按钮位于页面内容的上方 */
+        }
+
+        /* 鼠标悬停时按钮的样式变化 */
+        #playBGM:hover {
+            background-color: #FF4500;
+            /* 悬停时背景颜色变为 OrangeRed（橙红色） */
+            transform: translateX(-50%) scale(1.1);
+            /* 鼠标悬停时按钮略微放大 */
+        }
+
+        /* 禁用按钮时的样式 */
+        #playBGM:disabled {
+            background-color: #B0E0E6;
+            /* 禁用时背景颜色为 PowderBlue（粉蓝色） */
+            cursor: not-allowed;
+            /* 鼠标悬停时显示禁止光标 */
+        }
     </style>
 <!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css" /><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
 <body>
 
-    <h1>⏳2025 · 新年 𝟛！𝟚！𝟙！</h1>
-    <div id="countdown">
-        <span id="days" class="countdown-time">00</span> 天
-        <span id="hours" class="countdown-time">00</span> 小时
-        <span id="minutes" class="countdown-time">00</span> 分钟
-        <span id="seconds" class="countdown-time">00</span> 秒
+    <!-- 背景图片 -->
+    <div class="background-image"></div>
+
+    <!-- 雪花特效 -->
+    <div id="snowfall"></div>
+
+
+    <!-- 倒计时显示 -->
+    <div id="countdown-container">
+        <h1>💫²⁰²⁵/ᵕ̈ 𝘼𝙡𝙡 𝙞𝙨 𝙬𝙚𝙡𝙡﹆萧志鹏💘周海霞</h1>
+        <!-- 倒计时区域 -->
+        <div id="countdown">
+            <div class="countdown-segment" id="days" class="heartbeat">5</div>天
+            <div class="countdown-segment" id="hours" class="heartbeat">12</div>时
+            <div class="countdown-segment" id="minutes" class="heartbeat">30</div>分
+            <div class="countdown-segment" id="seconds" class="heartbeat">45</div>秒
+        </div>
     </div>
 
     <div class="message">
-        新的一年即将来临！<span>祝我们周海霞新的一年健康快乐！我们长长久久！</span>
+        <div class="main-text">🧨 | ɴᴇʏ ʏᴇᴀʀ̆̈ 🧨🎉</div>
+        <div class="sub-text">年年景不改 🎊岁岁人常在</div>
     </div>
 
-    <div id="snowfall"></div>
-    <canvas id="fireworksCanvas" class="firework-canvas"></canvas>
+    <canvas id="fireworksCanvas"></canvas>
+
+    <!-- 添加播放按钮 -->
+    <button id="playBGM">播放背景音乐</button>
+
+    <!-- 音频元素 -->
+    <audio id="bgm" loop>
+        <source
+            src="http://spd20zbkr.hn-bkt.clouddn.com/%E5%81%87%E5%A6%82%E7%88%B1%E6%9C%89%E5%A4%A9%E6%84%8F-%E8%B4%BA%E4%B8%89.flac"
+            type="audio/mp3">
+    </audio>
 
     <script>
-        // 设置新年的目标日期
-        const targetDate = new Date('2025-01-01T01:00:00').getTime();
+        // 设置起始日期
+        const startDate = new Date('2024-04-25T00:00:00');
 
-        // 更新倒计时
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const timeRemaining = targetDate - now;
-
-            if (timeRemaining <= 0) {
-                document.getElementById('countdown').innerHTML = "新年快乐!";
-                return;
+        // 数字跳动效果函数
+        function jumpNumber(elementId, newValue) {
+            const element = document.getElementById(elementId);
+            let currentValue = parseInt(element.textContent, 10);
+            if (currentValue !== newValue) {
+                let increment = newValue > currentValue ? 1 : -1;
+                let interval = setInterval(() => {
+                    currentValue += increment;
+                    element.textContent = String(currentValue).padStart(2, '0');
+                    if (currentValue === newValue) {
+                        clearInterval(interval);
+                    }
+                }, 50);
             }
-
-            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-            document.getElementById('days').innerText = days < 10 ? '0' + days : days;
-            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
         }
 
-        // 每秒更新倒计时
-        setInterval(updateCountdown, 1000);
+        function updateCountdown() {
+            const currentDate = new Date();
+            const timeDifference = currentDate - startDate;
 
-        // 创建雪花效果
-        function createSnowfall() {
-            const snowfallContainer = document.getElementById('snowfall');
-            for (let i = 0; i < 100; i++) {
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            jumpNumber('days', days);
+            jumpNumber('hours', hours);
+            jumpNumber('minutes', minutes);
+            jumpNumber('seconds', seconds);
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 雪花效果
+        window.onload = function () {
+            createSnowflakes();
+        };
+
+        function createSnowflakes() {
+            const snowElement = document.getElementById('snowfall');
+            const maxSnowflakes = 100;
+            const snowflakeColors = ['#ffffff', '#d1e6f0', '#b3c9dd'];
+
+            for (let i = 0; i < maxSnowflakes; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.classList.add('snowflake');
-                const size = Math.random() * 5 + 2; // 雪花大小
-                snowflake.style.width = `${size}px`;
-                snowflake.style.height = `${size}px`;
-                snowflake.style.left = `${Math.random() * window.innerWidth}px`;
-                snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // 雪花下落的速度
-                snowflake.style.animationDelay = `${Math.random() * 3}s`; // 雪花下落的延迟
-                snowfallContainer.appendChild(snowflake);
+                snowflake.style.width = (Math.random() * 10 + 5) + 'px';
+                snowflake.style.height = snowflake.style.width;
+                snowflake.style.left = Math.random() * window.innerWidth + 'px';
+                snowflake.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                snowflake.style.animationDelay = Math.random() * 2 + 's';
+                snowflake.style.backgroundColor = snowflakeColors[Math.floor(Math.random() * snowflakeColors.length)];
+                snowElement.appendChild(snowflake);
             }
         }
 
-        // 画烟花效果
-        function drawFireworks() {
-            const canvas = document.getElementById('fireworksCanvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // CSS 动画样式
+        document.styleSheets[0].insertRule(`
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+        }
+      }
+    `, 0);
 
-            function Firework(x, y) {
+        // 烟花效果
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // 设置 canvas 大小
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Firework {
+            constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.alpha = 1;
                 this.particles = [];
+                this.createParticles();
+            }
 
-                // 生成烟花粒子
-                for (let i = 0; i < 100; i++) {
-                    const angle = Math.random() * 2 * Math.PI;
-                    const speed = Math.random() * 5 + 2;
-                    const vx = Math.cos(angle) * speed;
-                    const vy = Math.sin(angle) * speed;
-                    this.particles.push({ x: this.x, y: this.y, vx: vx, vy: vy, alpha: 1 });
+            createParticles() {
+                const count = Math.random() * 30 + 30; // 每个烟花的粒子数量
+                for (let i = 0; i < count; i++) {
+                    this.particles.push(new Particle(this.x, this.y));
                 }
             }
 
-            Firework.prototype.update = function () {
-                this.particles.forEach(p => {
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.alpha -= 0.02;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color;
-                    ctx.globalAlpha = p.alpha;
-                    ctx.fill();
-                });
-                this.particles = this.particles.filter(p => p.alpha > 0);
-            };
-
-            function generateFireworks() {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height / 2;
-                const firework = new Firework(x, y);
-                fireworks.push(firework);
+            update() {
+                this.particles.forEach(particle => particle.update());
+                this.alpha -= 0.02;
+                if (this.alpha <= 0) {
+                    this.alpha = 0;
+                }
             }
 
-            const fireworks = [];
-            setInterval(() => {
-                if (Math.random() < 0.1) generateFireworks();
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                fireworks.forEach(fw => fw.update());
-            }, 50);
+            draw() {
+                this.particles.forEach(particle => particle.draw());
+            }
         }
 
-        // 页面加载后启动
-        window.onload = function () {
-            createSnowfall();
-            drawFireworks();
-            setInterval(updateCountdown, 1000);  // 每秒更新倒计时
-        };
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 6 - 3;
+                this.speedY = Math.random() * 6 - 3;
+                this.alpha = 1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= 0.02;
+                this.size *= 0.96; // 粒子逐渐变小
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = '#FF6347'; // 烟花的颜色
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function createFirework() {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            fireworks.push(new Firework(x, y));
+        }
+
+        const fireworks = [];
+        setInterval(createFirework, 500);
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach((firework, index) => {
+                firework.update();
+                firework.draw();
+                if (firework.alpha <= 0) {
+                    fireworks.splice(index, 1); // 移除消失的烟花
+                }
+            });
+            requestAnimationFrame(animate); // 不断更新画面
+        }
+
+        animate(); // 开始动画
+
+        // 播放背景音乐
+        const playBGMButton = document.getElementById('playBGM');
+        const bgm = document.getElementById('bgm');
+
+        // 点击按钮播放背景音乐
+        playBGMButton.addEventListener('click', () => {
+            if (bgm.paused) {
+                bgm.play(); // 播放音乐
+                playBGMButton.disabled = true; // 禁用按钮，防止多次点击
+                playBGMButton.textContent = '音乐正在播放...'; // 更新按钮文本
+            }
+        });
+
+        // 音乐播放完成后恢复按钮
+        bgm.addEventListener('ended', () => {
+            playBGMButton.disabled = false;
+            playBGMButton.textContent = '重新播放音乐';
+        });
     </script>
 
 <!-- hexo injector body_end start --><script data-pjax>
@@ -283,4 +522,5 @@
     butterfly_swiper_injector_config();
   }
   </script><script defer src="https://unpkg.zhimg.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://unpkg.zhimg.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/chitose.model.json"},"display":{"position":"right","width":190,"height":250},"mobile":{"show":true,"scale":0.5},"log":false});</script></body>
+
 </html>
