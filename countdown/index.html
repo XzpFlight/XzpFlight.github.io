@@ -71,60 +71,74 @@
         /* 倒计时数字的基础样式 */
         .countdown-time {
             font-size: 3rem;
+            /* 设置字体大小为 3rem（相对于根元素字体大小） */
             font-weight: bold;
+            /* 设置字体加粗 */
             color: #333;
+            /* 设置字体颜色为深灰色 */
         }
 
         /* 倒计时区域的样式 */
         #countdown {
             margin-bottom: 20px;
+            /* 设置倒计时区域底部的外边距为 20px */
             font-size: 3rem;
+            /* 设置字体大小为 3rem */
             font-weight: bold;
+            /* 设置字体加粗 */
             display: flex;
+            /* 使用 flexbox 布局 */
             justify-content: center;
+            /* 水平居中对齐子元素 */
             align-items: center;
+            /* 垂直居中对齐子元素 */
         }
 
         /* 倒计时每一段（天、小时、分钟、秒）的样式 */
         .countdown-segment {
             padding: 0 10px;
+            /* 给每个倒计时段添加水平内边距 10px */
         }
 
         /* 针对每一部分倒计时的颜色 */
         #days {
             color: #FF6347;
-            /* Tomato */
+            /* 设置天数部分的字体颜色为 Tomato（番茄红） */
         }
 
         #hours {
             color: #1E90FF;
-            /* DodgerBlue */
+            /* 设置小时部分的字体颜色为 DodgerBlue（闪电蓝） */
         }
 
         #minutes {
             color: #32CD32;
-            /* LimeGreen */
+            /* 设置分钟部分的字体颜色为 LimeGreen（酸橙绿） */
         }
 
         #seconds {
             color: #FFD700;
-            /* Gold */
+            /* 设置秒数部分的字体颜色为 Gold（金色） */
         }
 
         /* 显示信息区域的样式 */
         .message {
             margin-top: 30px;
+            /* 设置信息区域顶部外边距为 30px */
             font-size: 1.5rem;
+            /* 设置信息区域文字的字体大小为 1.5rem */
             color: #fff;
+            /* 设置信息区域文字的字体颜色为白色 */
         }
 
         /* 心跳效果的样式 */
         .heartbeat {
             font-size: 5rem;
-            /* 调整为合适大小 */
+            /* 设置字体大小为 5rem（相对于根元素字体大小），使文字更大 */
             font-weight: bold;
+            /* 设置字体加粗 */
             animation: heartbeat 1s ease-in-out infinite;
-            /* 加入心跳动画 */
+            /* 应用心跳动画，持续时间 1秒，循环播放 */
         }
 
         /* 心跳动画 */
@@ -133,11 +147,12 @@
             0%,
             100% {
                 transform: scale(1);
+                /* 在 0% 和 100% 时，元素的缩放比例为 1，恢复原始大小 */
             }
 
             50% {
                 transform: scale(1.2);
-                /* 放大效果 */
+                /* 在动画的中间部分（50%）时，元素放大为原来的 1.2 倍 */
             }
         }
 
@@ -147,7 +162,98 @@
             /* 设置 span 内的文字颜色为 SeaGreen（海洋绿） */
         }
 
-        /* 动态背景 */
+        /* 响应式布局调整 */
+
+        /* 针对较小屏幕（手机端） */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+                /* 减小标题字体大小 */
+                margin: 15px 0;
+                /* 调整标题的上下外边距 */
+            }
+
+            .countdown-time {
+                font-size: 2.5rem;
+                /* 缩小倒计时字体大小 */
+            }
+
+            #countdown {
+                font-size: 2.5rem;
+                /* 缩小倒计时字体大小 */
+            }
+
+            .heartbeat {
+                font-size: 4rem;
+                /* 缩小心跳效果的字体大小 */
+            }
+
+            .message {
+                font-size: 1.2rem;
+                /* 调整信息区域字体大小 */
+            }
+        }
+
+        /* 针对超小屏幕（手机竖屏） */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+                /* 减小标题字体大小 */
+            }
+
+            .countdown-time {
+                font-size: 2rem;
+                /* 缩小倒计时字体大小 */
+            }
+
+            #countdown {
+                font-size: 2rem;
+                /* 缩小倒计时字体大小 */
+            }
+
+            .heartbeat {
+                font-size: 3rem;
+                /* 缩小心跳效果的字体大小 */
+            }
+
+            .message {
+                font-size: 1rem;
+                /* 调整信息区域字体大小 */
+            }
+        }
+
+        /* 针对更大的屏幕（例如桌面） */
+        @media (min-width: 1024px) {
+            h1 {
+                font-size: 3rem;
+                /* 增大标题字体大小 */
+            }
+
+            .countdown-time {
+                font-size: 4rem;
+                /* 增大倒计时字体大小 */
+            }
+
+            #countdown {
+                font-size: 4rem;
+                /* 增大倒计时字体大小 */
+            }
+
+            .heartbeat {
+                font-size: 6rem;
+                /* 增大心跳效果的字体大小 */
+            }
+
+            .message {
+                font-size: 1.8rem;
+                /* 增大信息区域字体大小 */
+            }
+        }
+
+
+        /* 1. 基本布局（适用于所有设备） */
+
+        /* 雪花背景 */
         #snowfall {
             position: absolute;
             top: 0;
@@ -158,6 +264,7 @@
             z-index: 1;
         }
 
+        /* 烟花画布 */
         .firework-canvas {
             position: absolute;
             top: 0;
@@ -168,12 +275,14 @@
             z-index: 10;
         }
 
+        /* 雪花动画 */
         @keyframes fall {
             to {
                 transform: translateY(100vh) rotate(360deg);
             }
         }
 
+        /* 雪花样式 */
         .snowflake {
             position: absolute;
             background-color: #ffffff;
@@ -182,70 +291,96 @@
             animation: fall linear infinite;
         }
 
-        /* 烟花动画画布样式 */
-        #fireworksCanvas {
-            position: absolute;
-            /* 绝对定位 */
-            top: 0;
-            /* 距离页面顶部 0 像素 */
-            left: 0;
-            /* 距离页面左侧 0 像素 */
-            width: 100%;
-            /* 宽度为 100% */
-            height: 100%;
-            /* 高度为 100% */
-            pointer-events: none;
-            /* 禁止画布元素响应鼠标事件 */
-            z-index: 5;
-            /* 确保烟花画布位于其他元素之上 */
-        }
-
-        /* 按钮样式 */
+        /* 背景音乐播放按钮 */
         #playBGM {
             position: fixed;
-            /* 固定定位，保持在页面固定位置 */
             bottom: 20px;
-            /* 距离页面底部 20px */
             left: 50%;
-            /* 水平居中 */
             transform: translateX(-50%);
-            /* 将按钮完全居中 */
             padding: 15px 30px;
-            /* 按钮内边距，15px 上下，30px 左右 */
             font-size: 18px;
-            /* 字体大小为 18px */
             background-color: #FF6347;
-            /* 背景颜色为 Tomato（番茄红） */
             color: #fff;
-            /* 文字颜色为白色 */
             border: none;
-            /* 无边框 */
             border-radius: 25px;
-            /* 圆角效果，半径为 25px */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            /* 按钮的阴影效果 */
             cursor: pointer;
-            /* 鼠标悬停时显示手型光标 */
             transition: all 0.3s ease;
-            /* 按钮状态变化的平滑过渡效果 */
             z-index: 10;
-            /* 确保按钮位于页面内容的上方 */
         }
 
-        /* 鼠标悬停时按钮的样式变化 */
+        /* 按钮悬停效果 */
         #playBGM:hover {
             background-color: #FF4500;
-            /* 悬停时背景颜色变为 OrangeRed（橙红色） */
             transform: translateX(-50%) scale(1.1);
-            /* 鼠标悬停时按钮略微放大 */
         }
 
-        /* 禁用按钮时的样式 */
+        /* 禁用按钮样式 */
         #playBGM:disabled {
             background-color: #B0E0E6;
-            /* 禁用时背景颜色为 PowderBlue（粉蓝色） */
             cursor: not-allowed;
-            /* 鼠标悬停时显示禁止光标 */
+        }
+
+        /* 2. 响应式设计：不同屏幕尺寸的优化 */
+
+        /* 小屏幕设备：手机端 */
+        @media (max-width: 600px) {
+
+            /* 调整雪花大小，减少动画速度 */
+            .snowflake {
+                width: 5px;
+                height: 5px;
+                animation-duration: 10s;
+            }
+
+            /* 调整按钮大小和位置 */
+            #playBGM {
+                font-size: 14px;
+                padding: 12px 24px;
+                bottom: 15px;
+            }
+
+            /* 确保烟花效果适应屏幕 */
+            .firework-canvas {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        /* 中等屏幕设备：平板设备 */
+        @media (min-width: 601px) and (max-width: 1024px) {
+
+            /* 调整雪花大小，速度适中 */
+            .snowflake {
+                width: 8px;
+                height: 8px;
+                animation-duration: 8s;
+            }
+
+            /* 调整按钮大小和位置 */
+            #playBGM {
+                font-size: 16px;
+                padding: 14px 28px;
+                bottom: 18px;
+            }
+        }
+
+        /* 大屏幕设备：桌面端 */
+        @media (min-width: 1025px) {
+
+            /* 调整雪花大小，增加动画效果 */
+            .snowflake {
+                width: 10px;
+                height: 10px;
+                animation-duration: 6s;
+            }
+
+            /* 调整按钮大小 */
+            #playBGM {
+                font-size: 18px;
+                padding: 15px 30px;
+                bottom: 20px;
+            }
         }
     </style>
 <!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css" /><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
@@ -279,7 +414,7 @@
     <canvas id="fireworksCanvas"></canvas>
 
     <!-- 添加播放按钮 -->
-    <button id="playBGM">播放背景音乐</button>
+    <button id="playBGM">🌈ᑋᵉᑊᑊᵒ ᵕ̈✨ ◡̈ 🔓BGM</button>
 
     <!-- 音频元素 -->
     <audio id="bgm" loop>
@@ -455,7 +590,7 @@
             if (bgm.paused) {
                 bgm.play(); // 播放音乐
                 playBGMButton.disabled = true; // 禁用按钮，防止多次点击
-                playBGMButton.textContent = '音乐正在播放...'; // 更新按钮文本
+                playBGMButton.textContent = '假如爱有天意...'; // 更新按钮文本
             }
         });
 
