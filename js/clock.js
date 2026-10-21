@@ -1,123 +1,169 @@
-// ==========================
-// 🧭 调试开关
-// ==========================
-const DEBUG_MODE = false;
-function debugLog(...args) {
-  if (DEBUG_MODE) console.log(...args);
+// ==========================================
+// 🚀 赛博朋克·全息天气时钟 (支持访客IP定位)
+// ==========================================
+const WEATHER_HOST = "https://mj4bj7ax2x.re.qweatherapi.com";
+const WEATHER_KEY = "4415931d12bd4e378040304a3ae0178c";
+const GAUD_MAP_KEY = "96f83bc79ccb65041283896348efa4e1"; // 高德地图 Key
+const DEFAULT_CITY = "广州"; // 定位失败时的默认城市
+
+let clockTimer = null;
+let currentCity = DEFAULT_CITY;
+
+function initCustomClock() {
+    if (document.getElementById('my-custom-clock')) return;
+
+    const asideContent = document.querySelector('.aside-content');
+    const recentPostCard = document.querySelector('.card-recent-post');
+    
+    if (!asideContent) return; 
+
+    const clockHtml = `
+        <div id="my-custom-clock" class="card-widget">
+            <!-- 头部：位置与天气 -->
+            <div class="clock-header">
+                <span class="location-text" id="clock-location">📍 定位中...</span>
+                <div class="weather-box" id="clock-weather-box">
+                    <span class="weather-icon" id="clock-weather-icon">🌤️</span>
+                    <span class="weather-text" id="clock-weather">获取中</span>
+                </div>
+            </div>
+            
+            <!-- 中部：时间与日期 -->
+            <div class="clock-body">
+                <div class="time-text" id="clock-time">00:00:00</div>
+                <div class="date-text" id="clock-date">加载中...</div>
+            </div>
+            
+            <!-- 今日进度条 -->
+            <div class="progress-container">
+                <div class="progress-bar" id="clock-progress"></div>
+            </div>
+            
+            <!-- 底部：详细数据 -->
+            <div class="clock-footer">
+                <div class="data-item">
+                    <span class="label">体感</span>
+                    <span class="value" id="clock-feelslike">--℃</span>
+                </div>
+                <div class="data-item">
+                    <span class="label">湿度</span>
+                    <span class="value" id="clock-humidity">--%</span>
+                </div>
+                <div class="data-item">
+                    <span class="label">风向</span>
+                    <span class="value" id="clock-wind">--</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    if (recentPostCard) {
+        recentPostCard.insertAdjacentHTML('beforebegin', clockHtml);
+    } else {
+        asideContent.insertAdjacentHTML('beforeend', clockHtml);
+    }
+
+    updateTime();
+    if (clockTimer) clearInterval(clockTimer);
+    clockTimer = setInterval(updateTime, 1000);
+
+    // 第一步：获取访客IP位置
+    getUserLocation();
 }
 
-// ==========================
-// 🕓 时钟与天气展示
-// ==========================
-function clockUpdateTime(info, city, timezone = 'Asia/Shanghai') {
-  const clock_box = document.getElementById('hexo_electric_clock');
-  if (!clock_box) return;
-
-  let currentColor = '#000';
-  switch (info.now.icon) {
-    case '100': currentColor = '#fdcc45'; break;
-    case '101': currentColor = '#fe6976'; break;
-    case '102': case '103': currentColor = '#fe7f5b'; break;
-    case '104': case '150': case '151': case '152': case '153': case '154':
-    case '800': case '801': case '802': case '803': case '804': case '805':
-    case '806': case '807': currentColor = '#2152d1'; break;
-    case '300': case '301': case '305': case '306': case '307': case '308':
-    case '309': case '310': case '311': case '312': case '313': case '314':
-    case '315': case '316': case '317': case '318': case '350': case '351':
-    case '399': currentColor = '#49b1f5'; break;
-    case '302': case '303': case '304': currentColor = '#fdcc46'; break;
-    case '400': case '401': case '402': case '403': case '404': case '405':
-    case '406': case '407': case '408': case '409': case '410': case '456':
-    case '457': case '499': currentColor = '#a3c2dc'; break;
-    case '500': case '501': case '502': case '503': case '504': case '507':
-    case '508': case '509': case '510': case '511': case '512': case '513':
-    case '514': case '515': currentColor = '#97acba'; break;
-    case '900': case '999': currentColor = 'red'; break;
-    case '901': currentColor = '#179fff'; break;
-  }
-
-  clock_box.innerHTML = `
-    <div class="clock-row">
-      <span id="card-clock-clockdate" class="card-clock-clockdate"></span>
-      <span class="card-clock-weather"><i class="qi-${info.now.icon}-fill" style="color: ${currentColor}"></i> ${info.now.text} <span>${info.now.temp}</span> ℃</span>
-      <span class="card-clock-humidity">💧 ${info.now.humidity}%</span>
-    </div>
-    <div class="clock-row">
-      <span id="card-clock-time" class="card-clock-time"></span>
-    </div>
-    <div class="clock-row">
-      <span class="card-clock-windDir"> <i class="qi-gale"></i> ${info.now.windDir}</span>
-      <span class="card-clock-location">${city}</span>
-      <span id="card-clock-dackorlight" class="card-clock-dackorlight"></span>
-    </div>
-  `;
-
-  const week = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
-  function zeroPadding(num,d){return('0'.repeat(d)+num).slice(-d);}
-
-  function updateTime() {
+// 更新时间和进度条
+function updateTime() {
     const now = new Date();
-    const options = { timeZone: timezone, hour12: false };
-    const timeString = now.toLocaleString('en-US', options);
-    const cd = new Date(timeString);
+    const timeEl = document.getElementById('clock-time');
+    const dateEl = document.getElementById('clock-date');
+    const progressEl = document.getElementById('clock-progress');
+    
+    if (timeEl && dateEl) {
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+        timeEl.textContent = `${h}:${m}:${s}`;
 
-    document.getElementById('card-clock-time').innerHTML =
-      zeroPadding(cd.getHours(),2)+':'+zeroPadding(cd.getMinutes(),2)+':'+zeroPadding(cd.getSeconds(),2);
-    document.getElementById('card-clock-clockdate').innerHTML =
-      `${cd.getFullYear()}-${zeroPadding(cd.getMonth()+1,2)}-${zeroPadding(cd.getDate(),2)} ${week[cd.getDay()]}`;
-    document.getElementById('card-clock-dackorlight').innerHTML = cd.getHours()>12?' P M':' A M';
-  }
+        const y = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        const week = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][now.getDay()];
+        dateEl.textContent = `${y}-${month}-${d} ${week}`;
+    }
 
-  setInterval(updateTime,1000);
-  updateTime();
+    // 计算今日进度 (0% - 100%)
+    if (progressEl) {
+        const secondsToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+        const percent = (secondsToday / 86400) * 100;
+        progressEl.style.width = `${percent}%`;
+    }
 }
 
-// ==========================
-// 🌦️ 主流程：IP + 天气
-// ==========================
-function getIpAndWeather(default_city = '') {
-  const fetchCityWeather = (cityName) => {
-    debugLog('🔍 使用城市:', cityName);
-
-    const geoUrl = `${qweather_api_host}/geo/v2/city/lookup?location=${encodeURIComponent(cityName)}&key=${qweather_key}`;
-    fetch(geoUrl)
-      .then(res => res.json())
-      .then(geoData => {
-        const location = geoData.location?.[0];
-        if (!location) throw new Error('未找到 location id');
-
-        const locationId = location.id;
-        const timezone = location.tz || 'Asia/Shanghai';
-        debugLog('🔍 location id:', locationId, '🕐 时区:', timezone);
-
-        const weatherUrl = `${qweather_api_host}/v7/weather/now?location=${locationId}&key=${qweather_key}`;
-        return fetch(weatherUrl)
-          .then(res => res.json())
-          .then(weatherData => {
-            debugLog('🔍 天气数据:', weatherData);
-            clockUpdateTime(weatherData, cityName, timezone);
-          });
-      })
-      .catch(err => console.error('❌ 获取城市或天气错误:', err));
-  };
-
-  if (default_city && default_city.trim() !== '') {
-    // 有默认城市 → 直接使用
-    fetchCityWeather(default_city);
-  } else {
-    // 无默认城市 → IP定位
-    const gaudCity = `https://restapi.amap.com/v3/ip?key=${gaud_map_key}`;
-    fetch(gaudCity)
-      .then(res => res.json())
-      .then(ipData => {
-        const cityName = ipData.city && ipData.city !== ""
-          ? ipData.city
-          : ipData.province || "未知城市";
-        fetchCityWeather(cityName);
-      })
-      .catch(err => console.error('❌ 高德IP接口错误:', err));
-  }
+// 获取访客IP所在城市
+async function getUserLocation() {
+    try {
+        // 使用高德地图 IP 定位
+        const res = await fetch(`https://restapi.amap.com/v3/ip?key=${GAUD_MAP_KEY}`);
+        const data = await res.json();
+        
+        // 高德返回的 city 可能是空字符串（局域网）或数组（直辖市）
+        let city = data.city;
+        if (Array.isArray(city)) city = city[0];
+        
+        if (data.status === "1" && city) {
+            currentCity = city;
+        } else {
+            currentCity = DEFAULT_CITY;
+        }
+    } catch (error) {
+        console.error("IP定位失败，使用默认城市", error);
+        currentCity = DEFAULT_CITY;
+    }
+    
+    document.getElementById('clock-location').textContent = `📍 ${currentCity}`;
+    fetchWeather(currentCity);
 }
 
-// 实际运行
-getIpAndWeather(default_city);
+// 获取天气
+async function fetchWeather(cityName) {
+    try {
+        const geoRes = await fetch(`${WEATHER_HOST}/geo/v2/city/lookup?location=${encodeURIComponent(cityName)}&key=${WEATHER_KEY}`);
+        const geoData = await geoRes.json();
+        if (geoData.code !== "200" || !geoData.location) throw new Error("城市查询失败");
+        
+        const locationId = geoData.location[0].id;
+        const weatherRes = await fetch(`${WEATHER_HOST}/v7/weather/now?location=${locationId}&key=${WEATHER_KEY}`);
+        const weatherData = await weatherRes.json();
+        if (weatherData.code !== "200") throw new Error("天气获取失败");
+
+        const now = weatherData.now;
+        const weatherIconEl = document.getElementById('clock-weather-icon');
+        const weatherEl = document.getElementById('clock-weather');
+        const humidityEl = document.getElementById('clock-humidity');
+        const feelslikeEl = document.getElementById('clock-feelslike');
+        const windEl = document.getElementById('clock-wind');
+        
+        if (weatherEl) {
+            let icon = '🌤️';
+            if (now.text.includes('云')) icon = '☁️';
+            if (now.text.includes('雨')) icon = '🌧️';
+            if (now.text.includes('晴')) icon = '☀️';
+            if (now.text.includes('雪')) icon = '❄️';
+            if (now.text.includes('阴')) icon = '☁️';
+            
+            weatherIconEl.textContent = icon;
+            weatherEl.textContent = `${now.text} ${now.temp}℃`;
+            humidityEl.textContent = `${now.humidity}%`;
+            feelslikeEl.textContent = `${now.feelsLike}℃`;
+            windEl.textContent = now.windDir;
+        }
+    } catch (error) {
+        console.error("天气获取失败:", error);
+        const weatherEl = document.getElementById('clock-weather');
+        if (weatherEl) weatherEl.textContent = `天气获取失败`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initCustomClock);
+document.addEventListener('pjax:complete', initCustomClock);
+setInterval(initCustomClock, 1000);
